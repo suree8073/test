@@ -1,0 +1,97 @@
+﻿@model IEnumerable<test.Models.tblProduct>
+@{
+    ViewBag.Title = "AddNewProduct";
+}
+@*<div class="container">
+        <h2>Add New Product</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <form id="AddNewProduct" method="post" enctype="multipart/form-data" onsubmit="return AjaxPost(this)">
+                    <label>title</label><br />
+                    <input id="ProductName" name="ProductName" class="form-control" placeholder="Product Name" />
+
+                    <label>Price</label><br />
+                    <input id="Price" name="Price" class="form-control" placeholder="Price" />
+
+                    <label>title</label><br />
+                    <input id="ImageUpload" name="ImageUpload" class="form-control" type="file" />
+
+                </form>
+            </div>
+        </div>
+
+    </div>*@
+<div class="container">
+    <h2 class="text-center">Explore Best Selling</h2>
+    @foreach (var item in Model)
+    {
+        double price = Convert.ToInt32(item.Price);
+        <div class="col-md-3" style="margin-bottom:25px">
+            <div class="thumbnail">
+                <div class="image">
+                    <img class="img-responsive" src="@item.PicUrl" height="350" width="240" />
+
+                </div>
+                <div class="caption" style="border-top:3px solid #808080">
+                    <h3><a onclick="Open(@item.ProductId)">@item.ProductName</a></h3>
+                    <h4>@item.Vendor</h4>
+                    <h4>$@price.ToString("F2")</h4>
+                </div>
+
+            </div>
+
+        </div>
+    }
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                @*<h4 class="modal-title">Modal Header</h4>*@
+            </div>
+            <div class="modal-body" id="Preview">
+                @*PartialView*@
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function AjaxPost(formdate) {
+        var ajaxConfig = {
+            type: "post",
+            url: "/Product/SaveData",
+            data: new FormData(formData),
+            success: function (result) {
+                alert(result);
+                window.location.href = "/Product/AddNewProduct"
+            }
+        }
+        if ($(formData).attr('enctype') == "mutipart/form-data") {
+            ajaxConfig["contentType"] = false;
+            ajaxConfig["processData"] = false;
+        }
+        $.ajax(ajaxConfig);
+        return false;
+    }
+    function Open(productId) {
+        $.ajax({
+            type: "post",
+            url: '@Url.Action("GetDetails", "Product")',
+            data: {  productId },
+            success: function (data) {
+                $('#Preview').html(data);
+                $('#myModal').modal('show');
+            }
+        })
+    }
+</script>
+
+

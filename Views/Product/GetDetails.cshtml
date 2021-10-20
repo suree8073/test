@@ -1,0 +1,56 @@
+﻿@model test.Models.tblProduct
+@{
+    ViewBag.Title = "";
+}
+
+<html>
+<body>
+    <table style="border-collapse: collapse; width: 100%;" border="0" id="exampleModal">
+        <tbody>
+            <tr>
+                <td style="width: 30.1136%;"><img src=@Html.DisplayFor(model => model.PicUrl) alt="Image - Wikipedia" width="195" height="146" /></td>
+                <td style="width: 69.8864%; text-align: left;">
+                    <p style="padding-left: 40px;"><h3 style="padding-left:10px">@Html.DisplayFor(model => model.ProductName)</h3></p>
+                    <p style="padding-left: 40px;"><h4 style="padding-left:10px">Avaliability: @Html.DisplayFor(model => model.Quantity)</h4></p>
+                    <p style="padding-left: 40px;"><h4 style="padding-left:10px">Vendor: @Html.DisplayFor(model => model.Vendor)</h4></p>
+                    <p style="padding-left: 40px;"><h4 style="padding-left:10px">SKU: N/A</h4></p>
+                    <p style="padding-left: 40px;"><h4 style="padding-left:10px">@Html.DisplayFor(model=>model.ProductId)</h4></p>
+                    <p style="padding-left: 40px;">
+                        <input type="text" name="aNumberField" onkeydown="javascript:maskInput()" />
+                      
+                        <button class="btn btn-default"
+                                type="button"
+                                style="background-color: black"
+                              >
+                            <span style="color: #ffffff;">Add To Cart</span>
+</button>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+<script>
+    function maskInput(e) {
+        //check if we have "e" or "window.event" and use them as "event"
+        //Firefox doesn't have window.event 
+        var event = e || window.event
+
+        var key_code = event.keyCode;
+        var oElement = e ? e.target : window.event.srcElement;
+        if (!event.shiftKey && !event.ctrlKey && !event.altKey) {
+            if ((key_code > 47 && key_code < 58) ||
+                (key_code > 95 && key_code < 106)) {
+
+                if (key_code > 95)
+                    key_code -= (95 - 47);
+                oElement.value = oElement.value;
+            } else if (key_code == 8) {
+                oElement.value = oElement.value;
+            } else if (key_code != 9) {
+                event.returnValue = false;
+            }
+        }
+    }
+</script>

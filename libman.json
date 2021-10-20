@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "datatable@1.0.0",
+      "destination": "Scripts/datatable/"
+    },
+    {
+      "library": "kendo-ui-core@2014.1.416",
+      "destination": "Scripts/kendo-ui-core/"
+    }
+  ]
+}
